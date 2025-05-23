@@ -34,6 +34,7 @@ jobs:
     if: always()
     container:
       image: ghcr.io/dopsi/gh-actions-c-test
+      options: --user vscode
 
     steps:
       - name: Checkout repository
