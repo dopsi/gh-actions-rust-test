@@ -6,6 +6,10 @@ jobs:
   docker:
     runs-on: ubuntu-latest
     permissions: write-all
+    if: |
+      contains(join(github.event.commits.*.modified, ','), 'X/') ||
+      contains(join(github.event.commits.*.added, ','), 'X/') ||
+      contains(join(github.event.commits.*.removed, ','), 'X/')
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -27,6 +31,7 @@ jobs:
   build:
     runs-on: ubuntu-latest
     needs: docker
+    if: always()
     container:
       image: ghcr.io/dopsi/gh-actions-c-test
 
